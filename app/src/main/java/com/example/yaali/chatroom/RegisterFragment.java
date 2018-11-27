@@ -1,0 +1,70 @@
+package com.example.yaali.chatroom;
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.yaali.chatroom.Data.ChatRoomAPI;
+import com.example.yaali.chatroom.Data.RegisterUserController;
+import com.example.yaali.chatroom.Models.User;
+
+public class RegisterFragment extends Fragment {
+
+    private EditText username;
+    private EditText email;
+    private EditText password;
+    private Button registreButton;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragmnet_register,container,false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        findViews(view);
+        registreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RegisterUserController userController=new RegisterUserController(registerUserCallback);
+                User user = new User();
+                user.setUsername(username.getText().toString());
+                user.setPassword(password.getText().toString());
+                user.setEmail(email.getText().toString());
+                userController.start(user);
+            }
+        });
+    }
+
+    ChatRoomAPI.RegisterUserCallback registerUserCallback = new ChatRoomAPI.RegisterUserCallback() {
+        @Override
+        public void onResponse(User user) {
+            Toast.makeText(getActivity(),user.getUsername(),Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onFailure(String cause) {
+//            Toast.makeText(getActivity(),cause.getUsername(),Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public void findViews(View view){
+        username=view.findViewById(R.id.username);
+        password=view.findViewById(R.id.pasword);
+        email=view.findViewById(R.id.email);
+        registreButton=view.findViewById(R.id.registre);
+    }
+}
