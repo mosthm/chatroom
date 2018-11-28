@@ -1,9 +1,11 @@
 package com.example.yaali.chatroom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import com.example.yaali.chatroom.Data.ChatRoomAPI;
 import com.example.yaali.chatroom.Data.LoginUserController;
 import com.example.yaali.chatroom.Data.RegisterUserController;
+import com.example.yaali.chatroom.Models.MypreferenceManager;
 import com.example.yaali.chatroom.Models.TokenResponse;
 import com.example.yaali.chatroom.Models.User;
 
@@ -63,7 +66,13 @@ public class RegisterFragment extends Fragment {
         public void onResponse(boolean successful, String errorDescription, TokenResponse tokenResponse) {
             if(successful){
                 Toast.makeText(getActivity(),"Login Successfull " + tokenResponse.getAccessToken() ,Toast.LENGTH_SHORT).show();
-                loginUser();
+                //loginUser();
+                MypreferenceManager.getInstance(getActivity()).putUsername(username.getText().toString());
+                MypreferenceManager.getInstance(getActivity()).putAccessToken(tokenResponse.getAccessToken());
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(
+                        new Intent("login_ok")
+                );
+
             }else {
                 //Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
             }
