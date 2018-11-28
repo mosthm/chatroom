@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.yaali.chatroom.Data.ChatRoomAPI;
+import com.example.yaali.chatroom.Data.LoginUserController;
 import com.example.yaali.chatroom.Data.RegisterUserController;
+import com.example.yaali.chatroom.Models.TokenResponse;
 import com.example.yaali.chatroom.Models.User;
 
 public class RegisterFragment extends Fragment {
@@ -48,10 +50,39 @@ public class RegisterFragment extends Fragment {
         });
     }
 
+    private void loginUser(){
+        LoginUserController loginUserController = new LoginUserController(loginUserCallback);
+        loginUserController.start(
+                username.getText().toString(),
+                password.getText().toString()
+        );
+
+    }
+    ChatRoomAPI.LoginUserCallback loginUserCallback =new ChatRoomAPI.LoginUserCallback() {
+        @Override
+        public void onResponse(boolean successful, String errorDescription, TokenResponse tokenResponse) {
+            if(successful){
+                Toast.makeText(getActivity(),"Login Successfull " + tokenResponse.getAccessToken() ,Toast.LENGTH_SHORT).show();
+                loginUser();
+            }else {
+                //Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(String cause) {
+
+        }
+    };
     ChatRoomAPI.RegisterUserCallback registerUserCallback = new ChatRoomAPI.RegisterUserCallback() {
         @Override
-        public void onResponse(User user) {
-            Toast.makeText(getActivity(),user.getUsername(),Toast.LENGTH_SHORT).show();
+        public void onResponse(boolean successful,String errorMessage,User user) {
+            if(successful){
+                Toast.makeText(getActivity(),"Done " + user.getUsername(),Toast.LENGTH_SHORT).show();
+                loginUser();
+            }else {
+                Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
+            }
 
         }
 

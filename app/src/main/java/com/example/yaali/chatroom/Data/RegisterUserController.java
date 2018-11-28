@@ -2,7 +2,11 @@ package com.example.yaali.chatroom.Data;
 
 import android.util.Log;
 
+import com.example.yaali.chatroom.Models.ErrorResponse;
 import com.example.yaali.chatroom.Models.User;
+import com.google.gson.Gson;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +36,14 @@ public class RegisterUserController {
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("TAG", "onResponse" + response.code());
                 if (response.isSuccessful()){
-                    registerUserCallback.onResponse(response.body());
+                    registerUserCallback.onResponse(true,null,response.body());
+                }else {
+                    try {
+                        String errorBodyJson=response.errorBody().string();
+                        Gson gson = new Gson();
+                        ErrorResponse errorResponse=gson.fromJson(errorBodyJson,ErrorResponse.class);
+                        registerUserCallback.onResponse(false,errorResponse.getMessage(),null);
+                    }catch (IOException e){}
                 }
 
             }
