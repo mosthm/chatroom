@@ -8,7 +8,6 @@
     android:id="@+id/username"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:fontFamily="@font/BYekan_0"
     android:hint="@string/user_name"
     android:gravity="center_horizontal"
     android:layout_margin="@dimen/space_small"
@@ -19,7 +18,6 @@
     <EditText
     android:id="@+id/pasword"
     android:layout_width="0dp"
-        android:fontFamily="@font/BYekan_0"
     android:layout_height="wrap_content"
     android:hint="@string/user_password"
         android:gravity="center_horizontal"
@@ -30,7 +28,6 @@
     <EditText
     android:id="@+id/email"
     android:layout_width="0dp"
-        android:fontFamily="@font/BYekan_0"
     android:layout_height="wrap_content"
     android:hint="@string/user_email"
         android:gravity="center_horizontal"
