@@ -1,7 +1,11 @@
 package com.example.yaali.chatroom.Data;
 
+import com.example.yaali.chatroom.Models.Room;
+import com.example.yaali.chatroom.Models.RoomResponse;
 import com.example.yaali.chatroom.Models.TokenResponse;
 import com.example.yaali.chatroom.Models.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -27,12 +31,22 @@ public interface ChatRoomAPI {
             @Field("password") String password
             );
 
+    @Headers("X-Backtory-Object-Storage-Id:5a1d4b3de4b03ffa047badf5")
+    @POST("object-storage/classes/query/Room")
+    Call<RoomResponse> getRooms(
+            @Headers("Authorization") String authorization
+    );
+
     interface RegisterUserCallback{
         void onResponse(boolean successful,String errorMessage,User user);
         void onFailure(String cause);
     }
     interface LoginUserCallback{
         void onResponse(boolean successful,String errorDescription,TokenResponse tokenResponse);
+        void onFailure(String cause);
+    }
+    interface GetRoomsCallback{
+        void onResponse(List<Room> roomList);
         void onFailure(String cause);
     }
 }
