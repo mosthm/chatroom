@@ -17,14 +17,14 @@ public class RoomsController {
         this.roomsCallback = roomsCallback;
     }
 
-    public void strat(){
+    public void strat(String authorization){
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ChatRoomAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ChatRoomAPI chatRoomAPI=retrofit.create(ChatRoomAPI.class);
-        Call<RoomResponse> call=chatRoomAPI.getRooms();
+        Call<RoomResponse> call=chatRoomAPI.getRooms(authorization);
         call.enqueue(new Callback<RoomResponse>() {
             @Override
             public void onResponse(Call<RoomResponse> call, Response<RoomResponse> response) {

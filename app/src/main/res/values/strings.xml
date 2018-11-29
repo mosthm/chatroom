@@ -4,4 +4,5 @@
     <string name="user_password">رمز عبور</string>
     <string name="user_email">ایمیل</string>
     <string name="register">ثبت نام</string>
+    <string name="logout">خروج</string>
 </resources>

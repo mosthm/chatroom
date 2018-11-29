@@ -18,6 +18,15 @@ public class MypreferenceManager {
         editor=sharedPreferences.edit();
         //editor.pu
     }
+
+
+    //******************************************************************
+
+    public void clearEverything(){
+        editor.clear();
+        editor.apply();
+    }
+
     //******************************************************************
 
     public String getUsername(){
