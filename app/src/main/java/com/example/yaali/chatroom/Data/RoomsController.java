@@ -1,5 +1,7 @@
 package com.example.yaali.chatroom.Data;
 
+import android.util.Log;
+
 import com.example.yaali.chatroom.Models.MypreferenceManager;
 import com.example.yaali.chatroom.Models.RoomResponse;
 
@@ -25,16 +27,19 @@ public class RoomsController {
                 .build();
         ChatRoomAPI chatRoomAPI=retrofit.create(ChatRoomAPI.class);
         Call<RoomResponse> call=chatRoomAPI.getRooms(authorization);
+        Log.d("Tag","strat " + authorization );
         call.enqueue(new Callback<RoomResponse>() {
             @Override
             public void onResponse(Call<RoomResponse> call, Response<RoomResponse> response) {
+                Log.d("Tag","onResponse " + response.body() );
                 if(response.isSuccessful()){
                     roomsCallback.onResponse(response.body().getRooms());
-                }
+                }else {}
             }
 
             @Override
             public void onFailure(Call<RoomResponse> call, Throwable t) {
+                Log.d("Tag","onFailure " + t.getMessage() );
                 roomsCallback.onFailure(t.getMessage());
             }
         });

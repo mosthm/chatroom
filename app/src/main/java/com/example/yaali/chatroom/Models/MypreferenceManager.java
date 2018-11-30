@@ -19,7 +19,6 @@ public class MypreferenceManager {
         //editor.pu
     }
 
-
     //******************************************************************
 
     public void clearEverything(){
