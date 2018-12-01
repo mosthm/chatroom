@@ -104,7 +104,7 @@ public class RoomsFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            for (int i=0;i<40000000;i++){
+            for (int i=0;i<400000;i++){
                 Collections.sort(rooms, new Comparator<Room>() {
                     @Override
                     public int compare(Room x, Room y) {
@@ -113,7 +113,7 @@ public class RoomsFragment extends Fragment {
                 });
                 if(i%1000000==0){
                     Log.d("TAG","here "+i );
-                    publishProgress(i/1000000);
+                    publishProgress(i/10000);
                 }
             }
             return true;

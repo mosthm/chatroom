@@ -27,10 +27,14 @@ public class RegisterUserController {
     public void start(User user){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ChatRoomAPI.BASE_URL)
+                //convert API to json
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         ChatRoomAPI chatRoomAPI=retrofit.create(ChatRoomAPI.class);
         Call<User> call=chatRoomAPI.registerUser(user);
+        Log.d("TAG", "onResponse" + call );
+        //call API User
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

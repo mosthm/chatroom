@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,18 +20,21 @@ import com.example.yaali.chatroom.Models.MypreferenceManager;
 import com.example.yaali.chatroom.Models.TokenResponse;
 import com.example.yaali.chatroom.Models.User;
 
-public class RegisterFragment extends Fragment {
+public class LoginFragment extends Fragment {
+
 
     private EditText username;
-    private EditText email;
     private EditText password;
+    private Button loginButton;
     private Button registreButton;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragmnet_register,container,false);
+        return inflater.inflate(R.layout.fragment_login,container,false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -40,19 +42,28 @@ public class RegisterFragment extends Fragment {
 
 
         findViews(view);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         registreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                RegisterUserController userController=new RegisterUserController(registerUserCallback);
-                User user = new User();
-                user.setUsername(username.getText().toString());
-                user.setPassword(password.getText().toString());
-                user.setEmail(email.getText().toString());
-                userController.start(user);
+        RegisterFragment registerFragment=new RegisterFragment();
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_container,registerFragment)
+                .addToBackStack(null)
+                .commit();
             }
         });
+
     }
+
+
 
     private void loginUser(){
         LoginUserController loginUserController = new LoginUserController(loginUserCallback);
@@ -66,9 +77,9 @@ public class RegisterFragment extends Fragment {
         @Override
         public void onResponse(boolean successful, String errorDescription, TokenResponse tokenResponse) {
             if(successful){
-                Toast.makeText(getActivity(),"Login Successfull " + tokenResponse.getAccessToken() ,Toast.LENGTH_SHORT).show();
-                //loginUser();
+                //Toast.makeText(getActivity(),"Login Successfull " + tokenResponse.getAccessToken() ,Toast.LENGTH_SHORT).show();
                 MypreferenceManager.getInstance(getActivity()).putUsername(username.getText().toString());
+                MypreferenceManager.getInstance(getActivity()).putPassword(password.getText().toString());
                 MypreferenceManager.getInstance(getActivity()).putAccessToken(tokenResponse.getAccessToken());
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(
                         new Intent("login_ok")
@@ -77,37 +88,24 @@ public class RegisterFragment extends Fragment {
             }else {
                 //Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
             }
-        }
 
-        @Override
-        public void onFailure(String cause) {
-
-        }
-    };
-    ChatRoomAPI.RegisterUserCallback registerUserCallback = new ChatRoomAPI.RegisterUserCallback() {
-        @Override
-        public void onResponse(boolean successful,String errorMessage,User user) {
             if(successful){
-                Log.d("TAG", "onResponse" + errorMessage);
-                Toast.makeText(getActivity(),"Done " + user.getUsername(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),"Done " + user.getUsername(),Toast.LENGTH_SHORT).show();
                 loginUser();
             }else {
-                Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),errorDescription,Toast.LENGTH_SHORT).show();
             }
-
         }
 
         @Override
         public void onFailure(String cause) {
-//            Toast.makeText(getActivity(),cause.getUsername(),Toast.LENGTH_SHORT).show();
-            Log.d("TAG", "onResponse" + cause);
+
         }
     };
-
     public void findViews(View view){
         username=view.findViewById(R.id.username);
         password=view.findViewById(R.id.pasword);
-        email=view.findViewById(R.id.email);
+        loginButton=view.findViewById(R.id.login);
         registreButton=view.findViewById(R.id.registre);
     }
 }

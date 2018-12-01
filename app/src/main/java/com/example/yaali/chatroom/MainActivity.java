@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         if(MypreferenceManager.getInstance(MainActivity.this).getAccessToken() != null){
             openOtherFragments();
         }else {
-            openRegisterFragment();
+            openLoginFragment();
         }
     }
 
@@ -43,13 +43,17 @@ public class MainActivity extends AppCompatActivity {
         tabLayout=findViewById(R.id.tab_layout);
         viewPager=findViewById(R.id.view_pager);
     }
-    public void openRegisterFragment(){
+    public void openLoginFragment(){
 
-        RegisterFragment registerFragment=new RegisterFragment();
+        LoginFragment loginFragment=new LoginFragment();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container,registerFragment)
-                .addToBackStack(null)
+                .add(R.id.fragment_container,loginFragment)
                 .commit();
+//        RegisterFragment registerFragment=new RegisterFragment();
+//        getSupportFragmentManager().beginTransaction()
+//                .add(R.id.fragment_container,registerFragment)
+//                .addToBackStack(null)
+//                .commit();
     }
     public void openOtherFragments(){
 

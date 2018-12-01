@@ -39,6 +39,16 @@ public class MypreferenceManager {
     }
     //******************************************************************
 
+    public String getPassword(){
+        return sharedPreferences.getString("password",null);
+    }
+    public  void putPassword(String pass){
+        //use of editor then write
+        editor.putString("password",pass);
+        editor.apply();
+    }
+    //******************************************************************
+
     public String getAccessToken(){
         return sharedPreferences.getString("access_token",null);
     }
