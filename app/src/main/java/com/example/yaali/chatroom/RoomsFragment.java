@@ -132,6 +132,7 @@ public class RoomsFragment extends Fragment {
             roomList.clear();
             roomList.addAll(this.rooms);
             roomAdapter.notifyDataSetChanged();
+            progressUpdate.setVisibility(View.INVISIBLE);
         }
     }
 }

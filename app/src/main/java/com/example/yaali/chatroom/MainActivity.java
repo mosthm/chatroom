@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         if(MypreferenceManager.getInstance(MainActivity.this).getAccessToken() != null){
-            openRegisterFragment();
-        }else {
             openOtherFragments();
+        }else {
+            openRegisterFragment();
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.yaali.chatroom.Models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class MypreferenceManager {
     private static MypreferenceManager instance =null;
