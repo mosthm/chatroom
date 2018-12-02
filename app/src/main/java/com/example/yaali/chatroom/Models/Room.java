@@ -6,6 +6,7 @@ public class Room {
     @SerializedName("_id")
     private String id;
     private String name;
+    private String createdAt;
 
     public Room() {
     }
@@ -24,5 +25,13 @@ public class Room {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

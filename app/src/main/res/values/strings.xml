@@ -4,7 +4,10 @@
     <string name="user_password">رمز عبور</string>
     <string name="user_email">ایمیل</string>
     <string name="register">ثبت نام</string>
+    <string name="saveroom">ثبت</string>
+    <string name="savenewroom">ثبت روم جدید</string>
     <string name="login">ورود</string>
     <string name="logout">خروج</string>
+    <string name="name_room">نام روم</string>
     <string name="progress_update_template">%d from %d</string>
 </resources>

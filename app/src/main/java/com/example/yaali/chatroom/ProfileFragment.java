@@ -15,6 +15,7 @@ import com.example.yaali.chatroom.Models.MypreferenceManager;
 public class ProfileFragment extends Fragment {
     private TextView username;
     private Button logout;
+    private Button savenewroom;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,10 +35,21 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        savenewroom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewRoomFragment newRoomFragment=new NewRoomFragment();
+                getFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container,newRoomFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     private void findViews(View view){
         username=view.findViewById(R.id.username);
         logout=view.findViewById(R.id.logout);
+        savenewroom=view.findViewById(R.id.savenewroom);
     }
 }
