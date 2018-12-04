@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class RoomMessageResponse {
+    @SerializedName("results")
+    List<RoomMessage> roomMessages;
+
     public RoomMessageResponse() {
     }
 
-    @SerializedName("results")
-    List<MessageRoom> messageRoomList;
-
-    public List<MessageRoom> getMessageRoomList() {
-        return messageRoomList;
+    public List<RoomMessage> getMessageRoomList() {
+        return roomMessages;
     }
 
-    public void setMessageRoomList(List<MessageRoom> messageRoomList) {
-        this.messageRoomList = messageRoomList;
+    public void setMessageRoomList(List<RoomMessage> roomMessages) {
+        this.roomMessages = roomMessages;
     }
 }

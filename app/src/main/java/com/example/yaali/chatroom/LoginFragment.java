@@ -81,9 +81,8 @@ public class LoginFragment extends Fragment {
                 MypreferenceManager.getInstance(getActivity()).putUsername(username.getText().toString());
                 MypreferenceManager.getInstance(getActivity()).putPassword(password.getText().toString());
                 MypreferenceManager.getInstance(getActivity()).putAccessToken(tokenResponse.getAccessToken());
-                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(
-                        new Intent("login_ok")
-                );
+//
+
 
             }else {
                 //Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();

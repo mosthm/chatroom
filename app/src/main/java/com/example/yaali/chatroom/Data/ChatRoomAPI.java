@@ -1,8 +1,7 @@
 package com.example.yaali.chatroom.Data;
 
-import com.example.yaali.chatroom.Models.MessageRoom;
 import com.example.yaali.chatroom.Models.Room;
-import com.example.yaali.chatroom.Models.RoomMessageRequest;
+import com.example.yaali.chatroom.Models.RoomMessage;
 import com.example.yaali.chatroom.Models.RoomMessageResponse;
 import com.example.yaali.chatroom.Models.RoomResponse;
 import com.example.yaali.chatroom.Models.TokenResponse;
@@ -96,11 +95,11 @@ public interface ChatRoomAPI {
     @POST("object-storage/classes/query/Message")
     Call<RoomMessageResponse> getMessageRoom(
             @Header("Authorization") String authorization,
-            @Body RoomMessageRequest request
+            @Body Room room
     );
 
-    interface RoomMesageCallback{
-        void onResponse(List<MessageRoom> messageRoomList );
+    interface GetRoomMessageCallback{
+        void onResponse(List<RoomMessage> roomMessageList );
         void onFailure(String cause);
     }
 }

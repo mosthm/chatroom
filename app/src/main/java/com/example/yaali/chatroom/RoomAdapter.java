@@ -18,16 +18,13 @@ import java.util.List;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     List<Room> items;
-//    Intent intent = new Intent();
-    private OnSelectedListener onSelectedListener;
+    Intent intent = new Intent();
+   // private OnSelectedListener onSelectedListener;
 
     public RoomAdapter(List<Room> items) {
         this.items = items;
     }
-//    public RoomAdapter(List<Room> items, OnSelectedListener onSelectedListener) {
-//        this.items = items;
-//        this.onSelectedListener=onSelectedListener;
-//    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -43,6 +40,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
         viewHolder.name.setText(items.get(i).getName());
         viewHolder.id.setText(items.get(i).getId());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("idRoom",items.get(i).getId());
+                Log.d("TAG", "Id room : "+ items.get(i).getId() );
+            }
+        });
+ //       onClick(viewHolder);
 //        intent.setAction(items.get(i).getId());
 
     }
@@ -60,6 +65,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
             super(itemView);
             name=itemView.findViewById(R.id.name);
             id =itemView.findViewById(R.id.idroom);
+//            onClick(itemView,id);
 
         }
     }

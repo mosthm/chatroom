@@ -11,12 +11,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yaali.chatroom.Data.ChatRoomAPI;
 import com.example.yaali.chatroom.Data.OnSelectedListener;
@@ -59,25 +62,26 @@ public class RoomsFragment extends Fragment {
                 "bearer "+MypreferenceManager.getInstance(getActivity()).getAccessToken()
         );
         Log.d("Tag","roomList " + roomList.size());
-        idRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "onResponse : " + idRoom.getText());
-//                onSelectedListener.onIdRoomSelected(items.get().getId());
-//                    sendBroadcast(intent);
-//                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(
-//                            new Intent(items.get(i).getId())
-//                    );
-            }
-        });
-    }
 
+
+    }
+    public void on_click(View view) {
+        Log.d("TAG", "Id room : " );
+        Toast.makeText(this.getActivity(),"idRoom : " ,Toast.LENGTH_SHORT).show();
+////                onSelectedListener.onIdRoomSelected(items.get().getId());
+////                    sendBroadcast(intent);
+////                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(
+////                            new Intent(items.get(i).getId())
+////                    );
+    }
 
     private void initRoomList(){
         roomAdapter=new RoomAdapter(roomList);
         rooms.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rooms.setAdapter(roomAdapter);
+
         idRoom=rooms.findViewById(R.id.name);
+//        onClick(rooms);
 
 //        roomAdapter.intent.getAction();
     }
@@ -165,7 +169,21 @@ public class RoomsFragment extends Fragment {
             roomList.addAll(this.rooms);
             roomAdapter.notifyDataSetChanged();
             progressUpdate.setVisibility(View.INVISIBLE);
+
+//            idRoom.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d("TAG", "onResponse : " + idRoom.getText());
+////                onSelectedListener.onIdRoomSelected(items.get().getId());
+////                    sendBroadcast(intent);
+////                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(
+////                            new Intent(items.get(i).getId())
+////                    );
+//                }
+//            });
+
         }
+
     }
 
 

@@ -6,16 +6,16 @@ import java.util.List;
 
 public class MessageRoomResponse {
     @SerializedName("results")
-    List<MessageRoom> messageRoomList;
+    List<RoomMessage> roomMessageList;
 
     public MessageRoomResponse() {
     }
 
-    public List<MessageRoom> getMessageRoomList() {
-        return messageRoomList;
+    public List<RoomMessage> getRoomMessageList() {
+        return roomMessageList;
     }
 
-    public void setMessageRoomList(List<MessageRoom> messageRoomList) {
-        this.messageRoomList = messageRoomList;
+    public void setRoomMessageList(List<RoomMessage> messageRoomList) {
+        this.roomMessageList = messageRoomList;
     }
 }
