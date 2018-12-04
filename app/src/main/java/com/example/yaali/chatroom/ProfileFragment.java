@@ -35,6 +35,7 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
         savenewroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

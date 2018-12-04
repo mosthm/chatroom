@@ -1,5 +1,8 @@
 package com.example.yaali.chatroom;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.yaali.chatroom.Data.ChatRoomAPI;
+import com.example.yaali.chatroom.Data.OnSelectedListener;
 import com.example.yaali.chatroom.Data.RoomsController;
 import com.example.yaali.chatroom.Models.MypreferenceManager;
 import com.example.yaali.chatroom.Models.Room;
@@ -31,6 +35,8 @@ public class RoomsFragment extends Fragment {
     private RoomAdapter roomAdapter;
     private ProgressBar progressBar;
     private TextView progressUpdate;
+    private TextView idRoom;
+    private OnSelectedListener onSelectedListener;
 
     @Nullable
     @Override
@@ -42,25 +48,47 @@ public class RoomsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+//        View viewtemp =LayoutInflater.from(viewG.getContext())
+//                .inflate(R.layout.template_room,viewGroup,false);
+
         findview(view);
         initRoomList();
-        //progressBar.setVisibility(View.VISIBLE);
+        //macke object of roomController Class
         RoomsController roomsController = new RoomsController(roomsCallback);
         roomsController.strat(
                 "bearer "+MypreferenceManager.getInstance(getActivity()).getAccessToken()
         );
-        Log.d("Tag","roomList " +roomList.size());
+        Log.d("Tag","roomList " + roomList.size());
+        idRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TAG", "onResponse : " + idRoom.getText());
+//                onSelectedListener.onIdRoomSelected(items.get().getId());
+//                    sendBroadcast(intent);
+//                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(
+//                            new Intent(items.get(i).getId())
+//                    );
+            }
+        });
     }
+
+
     private void initRoomList(){
         roomAdapter=new RoomAdapter(roomList);
         rooms.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rooms.setAdapter(roomAdapter);
+        idRoom=rooms.findViewById(R.id.name);
+
+//        roomAdapter.intent.getAction();
     }
+    //find view in items viewfragment
     public void findview(View view){
         rooms=view.findViewById(R.id.rooms);
         progressBar=view.findViewById(R.id.progress_bar);
         progressUpdate=view.findViewById(R.id.progressUpdate);
     }
+
+    // Call list rooms get of server by API
     ChatRoomAPI.GetRoomsCallback roomsCallback = new ChatRoomAPI.GetRoomsCallback() {
         @Override
         public void onResponse(List<Room> inputList) {
@@ -89,6 +117,9 @@ public class RoomsFragment extends Fragment {
 
         }
     };
+
+
+    //sort list rooms
     private class SortRoomsAsync extends AsyncTask<Void ,Integer ,Boolean>{
         List<Room> rooms;
 
@@ -96,6 +127,7 @@ public class RoomsFragment extends Fragment {
             this.rooms = rooms;
         }
 
+        //sort list rooms in thread
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -135,4 +167,18 @@ public class RoomsFragment extends Fragment {
             progressUpdate.setVisibility(View.INVISIBLE);
         }
     }
+
+
+
+//    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//
+//            //delet afther fragmnet
+//            //getFragmentManager().popBackStack();
+//            //add new fragment
+//            //openOtherFragments();
+//
+//        }
+//    };
 }
