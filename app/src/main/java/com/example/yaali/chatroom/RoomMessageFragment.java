@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -138,7 +139,7 @@ public class RoomMessageFragment extends Fragment {
                         return x.getCreatedAt().compareTo(y.getCreatedAt());
                     }
                 });
-                if(i%1000000==0){
+                if(i%100000==0){
                     Log.d("TAG","here "+i );
                     publishProgress(i/10000);
                 }
@@ -175,8 +176,8 @@ public class RoomMessageFragment extends Fragment {
     }
 
     private void initRoomMessageList(){
-        messageRoomAdapter=new MessageRoomAdapter(roomMessageList);
-        roommessages.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        messageRoomAdapter=new MessageRoomAdapter(roomMessageList,getActivity());
+        roommessages.setLayoutManager(new LinearLayoutManager(getActivity()));
         roommessages.setAdapter(messageRoomAdapter);
     }
 }

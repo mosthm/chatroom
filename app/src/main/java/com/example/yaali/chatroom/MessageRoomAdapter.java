@@ -1,5 +1,6 @@
 package com.example.yaali.chatroom;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,26 +16,28 @@ import java.util.List;
 
 public class MessageRoomAdapter extends RecyclerView.Adapter<MessageRoomAdapter.ViewHolder> {
     List<RoomMessage> items;
+    private Context context;
 
-    public MessageRoomAdapter(List<RoomMessage> items) {
+    public MessageRoomAdapter(List<RoomMessage> items,Context context) {
         this.items = items;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public MessageRoomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view =LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.template_message,viewGroup,false);
 
-        return new MessageRoomAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageRoomAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.text.setText(items.get(i).getText());
-        viewHolder.username.setText(items.get(i).getUsername());
-        viewHolder.createdAt.setText(items.get(i).getCreatedAt());
+//        viewHolder.username.setText(items.get(i).getUsername());
+      //  viewHolder.createdAt.setText(items.get(i).getCreatedAt());
     }
 
     @Override
@@ -51,9 +54,9 @@ public class MessageRoomAdapter extends RecyclerView.Adapter<MessageRoomAdapter.
         public TextView createdAt;
         public ViewHolder(View itemView){
             super(itemView);
-            username=itemView.findViewById(R.id.usernamemessage);
+           // username=itemView.findViewById(R.id.usernamemessage);
             text =itemView.findViewById(R.id.message);
-            createdAt =itemView.findViewById(R.id.datamessage);
+           // createdAt =itemView.findViewById(R.id.datamessage);
 //            onClick(itemView,id);
 
         }

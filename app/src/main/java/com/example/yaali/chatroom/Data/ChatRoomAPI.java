@@ -63,18 +63,6 @@ public interface ChatRoomAPI {
         void onFailure(String cause);
     }
 //
-//    //******************************Get message of the Room*****************************************
-//
-//    @Headers("X-Backtory-Object-Storage-Id:5a1d4b3de4b03ffa047badf5")
-//    @POST("object-storage/classes/query/Message")
-//    Call<RoomResponse> getMessageRooms(
-//            @Header("Authorization") String authorization
-//    );
-//
-//    interface GetMessageRoomsCallback{
-//        void onResponse(List<MessageRoom> messageRoomList);
-//        void onFailure(String cause);
-//    }
 
     //*******************************New Room*******************************************************
 

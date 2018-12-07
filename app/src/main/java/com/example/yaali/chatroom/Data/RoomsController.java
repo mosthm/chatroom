@@ -25,6 +25,11 @@ public class RoomsController {
                 .baseUrl(ChatRoomAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+
+
+
+
         ChatRoomAPI chatRoomAPI=retrofit.create(ChatRoomAPI.class);
         Call<RoomResponse> call=chatRoomAPI.getRooms(authorization);
         Log.d("Tag","strat " + authorization );

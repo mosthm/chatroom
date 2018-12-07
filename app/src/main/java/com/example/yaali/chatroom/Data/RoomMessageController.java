@@ -32,9 +32,13 @@ public class RoomMessageController {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+
+
+
         ChatRoomAPI chatRoomAPI=retrofit.create(ChatRoomAPI.class);
         Call<RoomMessageResponse> call=chatRoomAPI.getMessageRoom(authorization,roomMessage);
         Log.d("Tag","strat " + authorization );
+        Log.d("Tag","strat " + roomMessage );
         //call API User
         call.enqueue(new Callback<RoomMessageResponse>() {
             @Override
@@ -42,14 +46,7 @@ public class RoomMessageController {
                 Log.d("Tag","onResponse12 " + response.body() );
                 if(response.isSuccessful()){
                     getRoomMessageCallback.onResponse(response.body().getMessageRoomList());
-                }else {
-                    try {
-                    String errorBodyJson=response.errorBody().string();
-                    Gson gson = new Gson();
-                    ErrorResponse errorResponse=gson.fromJson(errorBodyJson,ErrorResponse.class);
-                    getRoomMessageCallback.onResponse(response.body().getMessageRoomList());
-                }catch (IOException e){}
-                }
+                }else {                }
             }
 
             @Override
