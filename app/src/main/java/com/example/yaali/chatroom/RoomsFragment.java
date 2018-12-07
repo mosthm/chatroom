@@ -76,7 +76,7 @@ public class RoomsFragment extends Fragment {
     }
 
     private void initRoomList(){
-        roomAdapter=new RoomAdapter(roomList);
+        roomAdapter=new RoomAdapter(roomList,getActivity());
         rooms.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rooms.setAdapter(roomAdapter);
 
@@ -100,20 +100,6 @@ public class RoomsFragment extends Fragment {
            Log.d("Tag","roomList " +roomList.size());
 
             new SortRoomsAsync(inputList).execute();
-//            if(progressBar.isShown()){
-//                progressBar.setVisibility(View.INVISIBLE);
-//            }
-//            roomList.clear();
-//
-//            Collections.sort(inputList, new Comparator<Room>() {
-//                @Override
-//                public int compare(Room x, Room y) {
-//                    return x.getName().compareTo(y.getName());
-//                }
-//            });
-//
-//            roomList.addAll(inputList);
-//            roomAdapter.notifyDataSetChanged();
         }
 
         @Override

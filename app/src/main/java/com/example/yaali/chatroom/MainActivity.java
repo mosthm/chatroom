@@ -9,11 +9,13 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TableLayout;
 
 import com.example.yaali.chatroom.Data.ChatRoomAPI;
 import com.example.yaali.chatroom.Data.RegisterUserController;
 import com.example.yaali.chatroom.Models.MypreferenceManager;
+import com.example.yaali.chatroom.Models.RoomMessage;
 import com.example.yaali.chatroom.Models.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,18 +51,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container,loginFragment)
                 .commit();
-//        RegisterFragment registerFragment=new RegisterFragment();
-//        getSupportFragmentManager().beginTransaction()
-//                .add(R.id.fragment_container,registerFragment)
-//                .addToBackStack(null)
-//                .commit();
+
     }
     public void openOtherFragments(){
 
-//        RoomsFragment roomsFragment =new RoomsFragment();
-//        getSupportFragmentManager().beginTransaction()
-//                .add(R.id.fragment_container,roomsFragment)
-//                .commit();
         myFragmentPagerAdapter =new MyFragmentPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myFragmentPagerAdapter);
         //connect tablayout to viewpager
@@ -71,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(MainActivity.this).unregisterReceiver(broadcastReceiver);
+        LocalBroadcastManager.getInstance(MainActivity.this).unregisterReceiver(broadcastReceivermessage);
     }
 
     @Override
@@ -79,22 +74,41 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(
                 broadcastReceiver,new IntentFilter("login_ok")
         );
+        LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(
+                broadcastReceivermessage,new IntentFilter("intent_ok")
+        );
     }
 
     //define an object of type registerUserCallback
-
-
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            //delet afther fragmnet
-            getSupportFragmentManager().popBackStack();
-            //add new fragment
-            openOtherFragments();
+                //delet afther fragmnet
+                getSupportFragmentManager().popBackStack();
+                //add new fragment
+                openOtherFragments();
 
         }
     };
+    private BroadcastReceiver broadcastReceivermessage = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+                openMessageFragments();
+
+        }
+    };
+    public void openMessageFragments(){
+
+                RoomMessageFragment roomMessageFragment=new RoomMessageFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container,roomMessageFragment)
+                        .addToBackStack(null)
+                        .commit();
+        Log.d("TAG", "Id_room_pass : "+
+                MypreferenceManager.getInstance(this).getIdRoomMassege() );
+    }
 
 }

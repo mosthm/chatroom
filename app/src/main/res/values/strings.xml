@@ -10,5 +10,6 @@
     <string name="logout">خروج</string>
     <string name="name_room">نام روم</string>
     <string name="send_message">ارسال</string>
+    <string name="text_send_message">متن ارسالی</string>
     <string name="progress_update_template">%d from %d</string>
 </resources>

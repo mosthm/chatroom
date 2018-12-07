@@ -57,4 +57,14 @@ public class MypreferenceManager {
         editor.putString("access_token",accessToken);
         editor.apply();
     }
+    //******************************************************************
+
+    public String getIdRoomMassege(){
+        return sharedPreferences.getString("idroommassege",null);
+    }
+    public  void putIdRoomMassege(String idroommassege){
+        //use of editor then write
+        editor.putString("idroommassege",idroommassege);
+        editor.apply();
+    }
 }

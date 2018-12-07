@@ -95,11 +95,26 @@ public interface ChatRoomAPI {
     @POST("object-storage/classes/query/Message")
     Call<RoomMessageResponse> getMessageRoom(
             @Header("Authorization") String authorization,
-            @Body Room room
+            @Body RoomMessage roomMessage
     );
 
     interface GetRoomMessageCallback{
         void onResponse(List<RoomMessage> roomMessageList );
+        void onFailure(String cause);
+    }
+
+    //*******************************Send Message Room***********************************************
+
+    @Headers("X-Backtory-Object-Storage-Id:5a1d4b3de4b03ffa047badf5")
+    @POST("object-storage/classes/Message")
+    Call<RoomMessage> sendMessageRoom(
+            @Header("Authorization") String authorization,
+            @Body RoomMessage roomMessage
+    );
+
+    interface SendRoomMessageCallback {
+        void onResponse(boolean successful, String errorMessage, RoomMessage roomMessage);
+
         void onFailure(String cause);
     }
 }

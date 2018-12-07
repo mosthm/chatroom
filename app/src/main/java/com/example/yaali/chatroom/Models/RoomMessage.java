@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class RoomMessage {
     @SerializedName("_id")
+    private String Id;
     private String roomId;
     private String nameRoom;
     private String text;
@@ -11,6 +12,14 @@ public class RoomMessage {
     private String createdAt;
 
     public RoomMessage() {
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getRoomId() {
